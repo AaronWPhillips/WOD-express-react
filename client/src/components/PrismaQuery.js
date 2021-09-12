@@ -18,13 +18,13 @@ export default function PrismaQuery() {
       async function fetchPrismaData() {
          /** Use Axios to query the Prisma server and log the response*/
          const response = await axios.get(API_URL)
-         console.log(response)
-         /** Query the products in our Bakeshop store */
-         /** response.data is an array of JSON data */
+ 
+         /** Query the products in our Bakeshop store and set it as state
+         * response.data is an array of JSON data */
          setItems(response.data)
       }
-      /** Run the query, React forces us to declare a function in useEffect, then call
-      *  it separately in order to use async */
+      /** Run the query, React forces us to declare an async function in useEffect, 
+       * then call it separately in order to use async */
       fetchPrismaData()
       /** An empty array means useEffect will only run once, when the page renders */
    }, [])
@@ -40,16 +40,14 @@ export default function PrismaQuery() {
             direction="row"
             spacing={2}
             >
-          
-            {/** items.map loops through the array of JSON objects and allows us to */
-            /** pass our query results into each React component's props */}
+            {/** items.map loops through the array of JSON results */}
             {items.map((item) => (
                /** There is one child Grid item for each CustomCard */
                <Grid
                   item
                   xs={3}>
+                  {/** Pass the fields from our Prisma query as props to CustomCard */}
                   <CustomCard
-                     /** Pass the fields from our Prisma query as props to CustomCard */
                      title={item.name}
                      price={item.price}
                      description={item.description}
